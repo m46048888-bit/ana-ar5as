@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>إدارة المتجر | عنا أرخص</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.admin-page{max-width:1200px;margin:0 auto;padding:32px 18px}
+.login-card,.dash{background:#111;border:1px solid #333;border-radius:24px;padding:28px;box-shadow:0 20px 60px #0008}
+.login-card{max-width:460px;margin:10vh auto}
+.admin-form{display:grid;gap:14px}
+.admin-form label{display:grid;gap:7px}
+.admin-form input,.admin-form select,.admin-form textarea{padding:13px;border-radius:12px;border:1px solid #444;background:#181818;color:#fff}
+.dash{display:none}
+.admin-top{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:24px}
+.admin-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.admin-box{border:1px solid #333;border-radius:18px;padding:18px}
+.admin-list{display:grid;gap:10px;max-height:500px;overflow:auto}
+.admin-item{display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #292929}
+.admin-item img{width:55px;height:55px;object-fit:cover;border-radius:10px}
+.mini-actions{margin-right:auto;display:flex;gap:6px}
+.mini-actions button{border:1px solid #555;background:#222;color:#fff;border-radius:8px;padding:7px 10px;cursor:pointer}
+.admin-item{flex-wrap:wrap}
+.danger{border-color:#8b3030!important}
+.preview{min-height:70px}
+.preview img{max-width:120px;max-height:100px;border-radius:12px}
+.muted{color:#aaa}
+.error{color:#ff7777}
+.ok{color:#77dd99}
+#msg{white-space:pre-wrap}
+</style>
+</head>
+<body>
+<main class="admin-page">
+<div id="login" class="login-card">
+  <p class="eyebrow">لوحة المالك</p>
+  <h1>إدارة عنا أرخص</h1>
+  <p class="muted">هذه الصفحة خاصة بالمالك فقط.</p>
+  <form id="loginForm" class="admin-form">
+    <label>البريد الإلكتروني<input id="email" type="email" required autocomplete="username"></label>
+    <label>كلمة السر<input id="password" type="password" required autocomplete="current-password"></label>
+    <button class="gold-btn" type="submit">دخول لوحة التحكم</button>
+    <div id="loginMsg" class="error"></div>
+  </form>
+</div>
+
+<div id="dash" class="dash">
+  <div class="admin-top">
+    <div><p class="eyebrow">مرحباً بالمالك</p><h1>لوحة التحكم</h1></div>
+    <button id="logout" class="back-btn">تسجيل الخروج</button>
+  </div>
+  <div id="msg"></div>
+  <div class="admin-grid">
+    <section class="admin-box">
+      <h2>إضافة منتج</h2>
+      <form id="productForm" class="admin-form">
+        <input type="hidden" id="pid">
+        <label>القسم<select id="pcat"></select></label>
+        <label id="psubWrap" style="display:none">القسم الفرعي (اختياري)<select id="psub"><option value="">بدون</option></select></label>
+        <label>اسم المنتج<input id="pname" required></label>
+        <label>السعر<input id="pprice" type="number" min="0" step="0.01" required></label>
+        <label>الوصف (اختياري)<textarea id="pdesc" rows="3"></textarea></label>
+        <div id="perf" style="display:none">
+          <label>الفئة<select id="pgender"><option value="men">رجالي</option><option value="women">نسائي</option></select></label>
+          <label>الحجم<select id="psize"><option value="small">صغير</option><option value="medium">وسط</option><option value="large">كبير</option></select></label>
+        </div>
+        <label>صورة المنتج (اختياري)<input id="pimage" type="file" accept="image/jpeg,image/png,image/webp,image/gif"></label>
+        <div id="ppreview" class="preview"></div>
+        <button class="gold-btn">حفظ المنتج</button>
+        <button type="button" id="cancelEdit" class="back-btn" style="display:none">إلغاء التعديل</button>
+      </form>
+    </section>
+    <section class="admin-box">
+      <h2>إضافة قسم رئيسي جديد</h2>
+      <p class="muted">ضيف أي عدد أقسام رئيسية تحبه، بدون حد أقصى.</p>
+      <form id="addCatForm" class="admin-form">
+        <label>اسم القسم<input id="newCatName" required placeholder="مثال: ألعاب أطفال"></label>
+        <button class="gold-btn" type="button" id="addCatBtn">إضافة القسم</button>
+      </form>
+    </section>
+    <section class="admin-box">
+      <h2>صور الأقسام</h2>
+      <p class="muted">ارفع صورة واجهة لكل قسم. فيك كمان تحذف أي قسم مش محتاجه.</p>
+      <div id="cats" class="admin-list"></div>
+    </section>
+    <section class="admin-box">
+      <h2>الأقسام الفرعية</h2>
+      <p class="muted">أضف أقسام فرعية داخل أي قسم (متل رجالي/نسائي داخل حقائب).</p>
+      <form id="subcatForm" class="admin-form">
+        <label>القسم الرئيسي<select id="scCat"></select></label>
+        <label>اسم القسم الفرعي<input id="scName" required></label>
+        <button class="gold-btn" type="button" id="scAdd">إضافة قسم فرعي</button>
+      </form>
+      <div id="subcats" class="admin-list" style="margin-top:12px"></div>
+    </section>
+  </div>
+  <section class="admin-box" style="margin-top:18px">
+    <h2>إضافة منتجات دفعة وحدة</h2>
+    <p class="muted">اختار القسم، وحط اسم المنتج والسعر — سطر لكل منتج، بالشكل: <b>الاسم,السعر</b>. بعدين ترجع تحط الصورة لكل منتج لحاله من لائحة "المنتجات" تحت.</p>
+    <form id="bulkForm" class="admin-form">
+      <label>القسم<select id="bulkCat"></select></label>
+      <label id="bulkSubWrap" style="display:none">القسم الفرعي (اختياري)<select id="bulkSub"><option value="">بدون</option></select></label>
+      <label>لائحة المنتجات<textarea id="bulkList" rows="8" placeholder="خاتم فضة مطلي,5
+حلق لؤلؤ,4.5
+سلسال ذهبي رفيع,6"></textarea></label>
+      <button class="gold-btn" type="button" id="bulkAdd">إضافة الكل</button>
+      <div id="bulkProgress" class="muted"></div>
+    </form>
+  </section>
+  <section class="admin-box" style="margin-top:18px">
+    <h2>المنتجات</h2>
+    <div id="products" class="admin-list"></div>
+  </section>
+</div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="supabase-config.js"></script>
+<script src="admin.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="عنا أرخص - اكسسوارات، عطورات، أدوات منزلية، هدايا، مستلزمات أعياد ميلاد وأكثر بأسعار مميزة.">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>عنا أرخص | متجر</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false"><span></span><span></span><span></span></button>
+    <a class="brand" href="#home" aria-label="عنا أرخص - الرئيسية"><span>عنا</span> أرخص</a>
+    <nav class="nav" id="mainNav" aria-label="التنقل الرئيسي">
+      <a href="#home">الرئيسية</a><a href="#categories">الأقسام</a><a href="#contact">تواصل معنا</a>
+    </nav>
+    <div class="global-search" id="globalSearchWrap">
+      <span class="gs-icon">⌕</span>
+      <input id="globalSearch" type="search" placeholder="ابحث عن أي منتج بالموقع..." autocomplete="off" aria-label="بحث شامل بالموقع">
+      <div id="globalSearchResults" class="global-search-results hidden"></div>
+    </div>
+    <button class="cart-btn" id="openCart" aria-label="فتح سلة المشتريات">🛒 <b>السلة</b><span id="cartCount">0</span></button>
+  </header>
+  <div class="overlay hidden" id="navOverlay"></div>
+
+  <main id="home">
+    <section class="hero weave">
+      <div class="hero-content">
+        <p class="eyebrow">منتقى بعناية</p>
+        <h1>عنا أرخص</h1>
+        <p class="hero-text">فخامة الاختيار، بسعر ما بيخلّيك تفكّر مرتين. كل قسم مُنتقى بعناية ليضيف لمسة راقية على تفاصيلك اليومية.</p>
+        <a class="gold-btn" href="#categories">استكشف الأقسام</a>
+      </div>
+      <div class="seal-wrap">
+        <div class="seal"><div class="seal-core">أ</div></div>
+        <span class="seal-caption">ختم الجودة والثقة</span>
+      </div>
+    </section>
+
+    <section id="categories" class="section">
+      <div class="section-head"><div><p class="eyebrow">اختار القسم</p><h2>تسوّق حسب الفئة</h2></div><div class="line"></div></div>
+      <div class="categories" id="categoryCards"></div>
+    </section>
+
+    <section id="products" class="section products-section hidden">
+      <div class="section-head"><div><p class="eyebrow">منتجات القسم</p><h2 id="sectionTitle">المنتجات</h2></div><button class="back-btn" id="backToCategories">← كل الأقسام</button></div>
+      <div class="category-toolbar">
+        <div id="perfumeFilters" class="perfume-filters hidden">
+          <button class="filter-btn active" data-gender="all">الكل</button>
+          <button class="filter-btn" data-gender="men">رجالي</button>
+          <button class="filter-btn" data-gender="women">نسائي</button>
+          <span class="filter-label">الحجم:</span>
+          <button class="size-btn active" data-size="all">الكل</button>
+          <button class="size-btn" data-size="small">صغير</button>
+          <button class="size-btn" data-size="medium">وسط</button>
+          <button class="size-btn" data-size="large">كبير</button>
+        </div>
+        <div id="subFilters" class="perfume-filters hidden"></div>
+        <label class="search-box"><span>⌕</span><input id="productSearch" type="search" placeholder="ابحث عن منتج داخل القسم..." autocomplete="off"></label>
+      </div>
+      <div class="products-grid" id="productsGrid"></div>
+      <div id="noResults" class="empty hidden">ما لقينا منتجات مطابقة للبحث.</div>
+    </section>
+
+  <section id="contact" class="contact section">
+      <div><p class="eyebrow">تواصل معنا</p><h2>جاهزين لخدمتك</h2><p>للطلب أو الاستفسار تواصل معنا مباشرة.</p>
+        <p class="store-address">📍 سعدنايل، بجانب أزياء صبايا</p>
+      </div>
+      <div class="contact-actions">
+        <a class="social whatsapp" href="https://wa.me/96170301197" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+        <a class="social instagram" href="https://www.instagram.com/dolar_ana_2r5s/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a class="social tiktok" href="https://www.tiktok.com/@1dolar_3na2r5s" target="_blank" rel="noopener noreferrer">TikTok</a>
+        <a class="phone" href="tel:+96170301197">📞 +961 70 301 197</a>
+      </div>
+      <div class="qr-box">
+        <div id="qrcode"></div>
+        <span class="qr-label">امسح الكود لزيارة الموقع</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> عنا أرخص — جميع الحقوق محفوظة</span>
+    <span class="store-address-footer">📍 سعدنايل، بجانب أزياء صبايا</span>
+    <span>by maher</span>
+  </footer>
+
+<div class="overlay hidden" id="overlay"></div>
+
+  <aside class="cart-drawer" id="cartDrawer" aria-label="سلة المشتريات" aria-hidden="true">
+    <div class="cart-head"><div><p class="eyebrow">مشترياتك</p><h2>السلة</h2></div><button id="closeCart" class="close">×</button></div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="cart-foot"><div><span>المجموع</span><strong id="cartTotal">$0.00</strong></div><button id="checkout" class="gold-btn full">إتمام الطلب عبر واتساب</button></div>
+  </aside>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
